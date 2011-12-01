@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:head>
+		<title>Ajax Guess Number Facelets Application</title>
+	</h:head>
+	
+	<h:body>
+		<h:form id="AjaxGuess">
+		
+			<h:outputScript library="js" name="ui.js" target="head"/>
+			<h:graphicImage library="images" name="wave.med.gif"/>
+			<!-- <h:graphicImage	value="#{resource['images:wave.med.gif']}"/> -->
+			
+			<h2>
+				Hi, my name is Duke. I am thinking of a number from
+				#{userNumberBean.minimum} to #{userNumberBean.maximum}.
+				Can you guess it?
+				<p></p>
+				<h:inputText id="userNo" value="#{userNumberBean.userNumber}">
+					<f:validateLongRange
+						minimum="#{userNumberBean.minimum}"
+						maximum="#{userNumberBean.maximum}"/>
+				</h:inputText>
+				
+				<h:commandButton id="submit" value="Submit">
+					<f:ajax execute="userNo" render = "result errors1"
+							onevent="msg"/>
+				</h:commandButton>
+				<p></p>
+				<h:outputText id="result" value="#{userNumberBean.response}"/>
+				<p></p>
+				
+				<h:message showSummary="true" showDetail = "false"
+							style="color:red;
+							font-family:'Times New Roman', Times, serif;
+							font-style:oblique;
+							text-decoration:overline"
+							id="errors1" for="userNo"/>
+			</h2>
+		</h:form>
+	</h:body>
+	
+</html>
